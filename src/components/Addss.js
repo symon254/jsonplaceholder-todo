@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { addTodo} from '../reducers/todos';
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../reducers/todos';
 const Addss = () => {
   const [todoName, setTodo] = useState('');
   
@@ -10,6 +10,7 @@ const Addss = () => {
     dispatch(addTodo(todoName))
     setTodo('');
   };
+ 
     return (
          <form onSubmit={handleSubmit}>
         <label>

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 const ADD_TODO = 'ADD_TODO';
+const DELETE_TODO = 'DELETE_TODO';
 
 export function addTodo(todo) {
   return {
@@ -8,14 +9,27 @@ export function addTodo(todo) {
   }
 }
 
-const defaultTodos = [
-  {
-    name: '',
+// export function deleteTodo({field}){
+//   return {
+//     type: DELETE_TODO,
+//     field
+//   }
+// }
+export const deleteTodo = key =>({
+  type: DELETE_TODO,
+  payload: key
+})
+// const defaultTodos = [
+//   {
+//     name: '',
     
-  }
-];
+//   }
+// ];
+const initialState = {
+  todos:[]
+};
 
-function todos(state=defaultTodos, action) {
+function todos(state=initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return [
@@ -25,7 +39,20 @@ function todos(state=defaultTodos, action) {
           
         }
       ];
-    default:
+    case DELETE_TODO:
+      return{
+       ...state,todos:state.todos.filter((i) => i!==action.payload)
+
+      };
+
+    //   return{
+    //   ...state,
+    //   ...state.filter(field => field !== action.field)
+    // }
+    //   return [
+    //     ...state.filter(todo => todo !== action.payload),
+    //   ]
+     default:
       return state;
   }
 }
