@@ -1,36 +1,59 @@
 import React from 'react';
-import {  useSelector, useDispatch } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 import { deleteTodo} from '../reducers/todos';
 import { useState } from 'react';
- 
+//import Todo from './Todo';
 
 const TodoList = () => {
-    const [todo, setTodo] = useState('');
+  const [setTodo] = useState('');
+  const todos = [...useSelector(state => state.todos)]
+    const [todo] = useState('');
   
     const dispatch = useDispatch();
-    const todos = [...useSelector(state => state.todos)].sort((a, b) => {
-        return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
-    });
-    // handleDelete = (field) =>{
-    //     const {deleteTodo} = this.props;
-    //     deleteTodo({field})
-    // }
-      const handleDelete = event => {
-        //event.preventDefault();
+    const handleSubmit = event => {
+      event.preventDefault();
+      setTodo('');
+    };  
+
+     const handleDelete = event => {
+        event.preventDefault();
         dispatch(deleteTodo(todo))
-        setTodo('');
       };
       return (
-        <ul>
-        {todos.map(todo => (
-          <li key={todo.name}>
-            <h3>{todo.name}
-           <button>edit</button>
-            <button onClick={handleDelete}>delete</button></h3>
-          </li>
-          
-        ))}
-      </ul>   
+        
+           <div>
+             <table onSubmit={handleSubmit}>
+               <caption>
+                 todo
+               </caption>
+               <thead>
+                 <tr>
+                   <th>todos</th>
+                   <th>edit</th>
+                   <th>delete</th>
+                 </tr>
+               </thead>
+               <tbody>
+                
+                   {todos.map(todo => (
+                      <tr key={todo.name}>
+          <td>{todo.name}</td>
+     
+                   <td><button>edit</button></td>
+                   <td> <button onClick={handleDelete}>delete</button></td>
+                 </tr>
+          ))}         
+               </tbody>
+               
+             </table>
+             
+              
+           
+             
+            
+           </div> 
+        
+        
       )
     }
   
