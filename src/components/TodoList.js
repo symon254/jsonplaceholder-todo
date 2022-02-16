@@ -1,6 +1,6 @@
 import React from 'react';
 import {  useDispatch, useSelector } from 'react-redux'
-import { deleteTodo} from '../reducers/todos';
+import { deleteTodo, editTodo} from '../reducers/todos';
 import { useState } from 'react';
 //import Todo from './Todo';
 
@@ -16,8 +16,10 @@ const TodoList = () => {
     };  
 
      const handleDelete = event => {
-        event.preventDefault();
         dispatch(deleteTodo(todo))
+      };
+      const handleEdit = event => {   
+        dispatch(editTodo(todo))
       };
       return (
         
@@ -39,7 +41,7 @@ const TodoList = () => {
                       <tr key={todo.name}>
           <td>{todo.name}</td>
      
-                   <td><button>edit</button></td>
+                   <td><button onClick={handleEdit}>edit</button></td>
                    <td> <button onClick={handleDelete}>delete</button></td>
                  </tr>
           ))}         
